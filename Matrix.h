@@ -17,55 +17,55 @@ class Matrix
 {
 public:
 	using Vector< T >::length;
-    using Vector< T >::resize;
-    using Vector< T >::operator bool;
-    
+	using Vector< T >::resize;
+	using Vector< T >::operator bool;
+	
 	Matrix() :
 		Vector< T >::Vector()
 		{}
 	Matrix( const Matrix< T >& cMatrix ) :
-    	Vector< T >::Vector( cMatrix ),
+		Vector< T >::Vector( cMatrix ),
 		_numRows( cMatrix._numRows ),
-    	_numColumns( cMatrix._numColumns )
-    	{}
-    Matrix( const unsigned int r, const unsigned int c ) :
-    	Vector< T >::Vector( r * c ),
-    	_numRows( r ),
-    	_numColumns( c )
-    	{}
-    Matrix( std::initializer_list< std::initializer_list< T > > iList ) :
-    	Vector< T >::Vector(),
-    	_numRows( iList.size() ),
-    	_numColumns( iList.begin()->size() )
-    	{
-    		std::vector< T > values;
-    		for( auto list : iList )
-    			for( auto val : list )
-    				values.push_back( val );
-    		
-    		_values = values;
+		_numColumns( cMatrix._numColumns )
+		{}
+	Matrix( const unsigned int r, const unsigned int c ) :
+		Vector< T >::Vector( r * c ),
+		_numRows( r ),
+		_numColumns( c )
+		{}
+	Matrix( std::initializer_list< std::initializer_list< T > > iList ) :
+		Vector< T >::Vector(),
+		_numRows( iList.size() ),
+		_numColumns( iList.begin()->size() )
+		{
+			std::vector< T > values;
+			for( auto list : iList )
+				for( auto val : list )
+					values.push_back( val );
+			
+			_values = values;
 		}
 
-    Matrix< T >& operator= ( const Matrix< T >& );
-    
-    template < class InputIterator >
-    	typename std::enable_if< std::is_same< T, typename std::iterator_traits< InputIterator >::value_type >::value, void >::type
-    		setValues( InputIterator, InputIterator );
-    
-    void setValues( std::initializer_list< T > );
-    
-    T* operator[] ( const unsigned int );
-    const T* operator[] ( const unsigned int ) const;
-    
-    Vector< T > getRow( const unsigned int ) const;
-    Vector< T > getColumn( const unsigned int ) const;
-    
-    unsigned int numRows() const;
-    unsigned int numColumns() const;
-    
-    Matrix< T > transpose() const;
-    
-    Matrix< T > rref() const;
+	Matrix< T >& operator= ( const Matrix< T >& );
+	
+	template < class InputIterator >
+		typename std::enable_if< std::is_same< T, typename std::iterator_traits< InputIterator >::value_type >::value, void >::type
+			setValues( InputIterator, InputIterator );
+	
+	void setValues( std::initializer_list< T > );
+	
+	T* operator[] ( const unsigned int );
+	const T* operator[] ( const unsigned int ) const;
+	
+	Vector< T > getRow( const unsigned int ) const;
+	Vector< T > getColumn( const unsigned int ) const;
+	
+	unsigned int numRows() const;
+	unsigned int numColumns() const;
+	
+	Matrix< T > transpose() const;
+	
+	Matrix< T > rref() const;
 	
 protected:
 	void swapRows( const unsigned int, const unsigned int );
